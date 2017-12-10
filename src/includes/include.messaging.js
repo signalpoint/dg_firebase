@@ -1,22 +1,4 @@
-/**
- * Implements hook_library_onload().
- */
-function dg_firebase_library_onload(moduleName, libraryName) {
-  //console.log('LOADED: ' + moduleName + '/' + libraryName);
-
-  // Skip modules and libraries for the we don't care about.
-  if (moduleName != 'dg_firebase' || libraryName == 'firebase') { return; }
-
-  // Initialize the Firebase application.
-  // @see https://firebase.google.com/docs/cloud-messaging/js/client
-  var config = {
-    apiKey: dg_google.apiKey('firebase'),
-    messagingSenderId: dg_google.getConfig('firebase', 'messagingSenderId')
-    //authDomain: "<PROJECT_ID>.firebaseapp.com",
-    //databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
-    //storageBucket: "<BUCKET>.appspot.com",
-  };
-  firebase.initializeApp(config);
+dg_firebase.initializeMessaging = function() {
 
   // Retrieve Firebase Messaging object.
   const messaging = firebase.messaging();
@@ -89,4 +71,4 @@ function dg_firebase_library_onload(moduleName, libraryName) {
 
   });
 
-}
+};
