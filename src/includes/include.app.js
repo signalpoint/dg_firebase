@@ -1,3 +1,7 @@
+dg_firebase.initialized = function() {
+  return this._initialized;
+};
+
 dg_firebase.initializeApp = function() {
 
   // Initialize the Firebase application.
@@ -10,5 +14,6 @@ dg_firebase.initializeApp = function() {
     //storageBucket: "<BUCKET>.appspot.com",
   };
   firebase.initializeApp(config);
+  this._initialized = true;
 
 };
