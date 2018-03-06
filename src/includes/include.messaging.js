@@ -2,8 +2,6 @@ dg_firebase.initializeMessaging = function() {
 
   return new Promise(function(ok, err) {
 
-
-
     // Retrieve Firebase Messaging object.
     const messaging = firebase.messaging();
 
@@ -19,14 +17,17 @@ dg_firebase.initializeMessaging = function() {
       // Request permission to receive notifications.
       messaging.requestPermission()
           .then(function() {
-            console.log('Notification permission granted.');
+            //console.log('Notification permission granted.');
 
             // Get Instance ID token. Initially this makes a network call, once retrieved
             // subsequent calls to getToken will return from cache.
             messaging.getToken()
                 .then(function(currentToken) {
                   if (currentToken) {
-                    console.log('token retrieved', currentToken);
+
+                    dg_firebase._messagingInitialized = true;
+
+                    //console.log('token retrieved', currentToken);
                     ok(currentToken);
 
                     //sendTokenToServer(currentToken);
@@ -35,7 +36,7 @@ dg_firebase.initializeMessaging = function() {
                   }
                   else {
                     // Show permission request.
-                    console.log('No Instance ID token available. Request permission to generate one.');
+                    //console.log('No Instance ID token available. Request permission to generate one.');
 
                     // Show permission UI.
                     //updateUIForPushPermissionRequired();
@@ -59,7 +60,7 @@ dg_firebase.initializeMessaging = function() {
       messaging.onTokenRefresh(function() {
         messaging.getToken()
             .then(function(refreshedToken) {
-              console.log('Token refreshed.', refreshedToken);
+              //console.log('Token refreshed.', refreshedToken);
 
               // Indicate that the new Instance ID token has not yet been sent to the
               // app server.
@@ -76,8 +77,6 @@ dg_firebase.initializeMessaging = function() {
       });
 
     });
-
-
 
   });
 
